@@ -1,0 +1,16 @@
+{
+  "name": "azvdo-blog",
+  "version": "0.0.1",
+  "description": "Meu blog pessoal",
+  "main": "index.js",
+  "repository": "https://github.com/azmovi/azvdo-blog",
+  "author": "Antonio Cicero Azevedo",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "scripts": {
+    "dev": "yarn exec eleventy -- --serve",
+    "build": "npx @11ty/eleventy"
+  }
+}
