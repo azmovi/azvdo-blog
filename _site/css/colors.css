@@ -1,0 +1,9 @@
+:root { /* light-mode */
+  --background-color: #eff1f5;
+  --text: #4c4f69;
+}
+
+.dark-mode {
+  --background-color: #1e1e2e;
+  --text: #cdd6f4;
+}
