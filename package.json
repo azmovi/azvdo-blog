@@ -6,11 +6,27 @@
   "repository": "https://github.com/azmovi/azvdo-blog",
   "author": "Antonio Cicero Azevedo",
   "license": "MIT",
-  "dependencies": {
-    "@11ty/eleventy": "^3.0.0"
-  },
   "scripts": {
-    "dev": "yarn exec eleventy -- --serve",
-    "build": "npx @11ty/eleventy"
+    "dev:eleventy": "eleventy --serve",
+    "dev:tailwind": "tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css --watch",
+    "dev": "yarn run dev:eleventy & yarn run dev:tailwind",
+
+    "build:eleventy": "eleventy",
+    "build:tailwind": "tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css",
+    "build": "yarn run build:eleventy & yarn run build:tailwind"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.8",
+    "autoprefixer": "^10.4.21",
+    "markdown-it": "^12.3.2",
+    "markdown-it-anchor": "^8.6.7",
+    "tailwindcss": "^3.3.3"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
+    "@types/markdown-it": "^14.1.2",
+    "eslint": "^9.33.0",
+    "postcss": "^8.5.6"
   }
 }
