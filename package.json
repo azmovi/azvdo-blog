@@ -7,13 +7,10 @@
   "author": "Antonio Cicero Azevedo",
   "license": "MIT",
   "scripts": {
-    "dev:eleventy": "eleventy --serve",
-    "dev:tailwind": "tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css --watch",
-    "dev": "yarn run dev:eleventy & yarn run dev:tailwind",
-
-    "build:eleventy": "eleventy",
-    "build:tailwind": "tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css",
-    "build": "yarn run build:eleventy & yarn run build:tailwind"
+    "dev": "yarn run eleventy --serve & yarn run tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "yarn run eleventy & yarn run tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.8",
@@ -25,8 +22,10 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",
     "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
+    "@eslint/js": "^9.34.0",
     "@types/markdown-it": "^14.1.2",
-    "eslint": "^9.33.0",
+    "eslint": "^9.34.0",
+    "globals": "^16.3.0",
     "postcss": "^8.5.6"
   }
 }

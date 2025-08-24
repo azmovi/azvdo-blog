@@ -1,8 +1,10 @@
 {
     "name": "Antonio Cicero Azevedo",
     "url": "https://azvdo.net/",
-    "title": "My Personal Blog",
-    "description": "Escrever algumas coisas que vem na mente",
+    "title": "Azvdo Blog",
+    "description": "Escrevendo algumas coisas do dia dia, coisas do trabalho e que venho estudando",
     "github": "https://github.com/azmovi",
-    "linkedin": "https://www.linkedin.com/in/cicero-azevedo-2b30ba200/"
+    "linkedin": "https://www.linkedin.com/in/cicero-azevedo-2b30ba200/",
+    "framework": "https://www.11ty.dev/",
+    "template": "https://github.com/httpsterio/11ty-blog-njk-starter"
 }

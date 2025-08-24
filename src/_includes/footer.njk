@@ -1,13 +1,7 @@
 <footer class="mt-8 bg-gray-200 dark:bg-gray-900 py-8 flex-shrink-0">
   <div class="max-w-screen-sm md:max-w-screen-md mx-auto px-8 flex justify-between items-center">
     <div class="flex flex-col text-sm py-2" >
-        <p>
             Antonio Cicero Azevedo
-        </p>
-        <p>
-            Desenvolvido com <a href="https://www.11ty.dev/" class="text-blue-500 hover:underline">Eleventy</a>,
-            template do <a href="https://github.com/httpsterio/11ty-blog-njk-starter" class="text-blue-500 hover:underline"> httpsterio</a>.
-        </p>
     </div>
     <p class="text-sm py-2 flex gap-4">
       {% if site.github != "" %}
@@ -16,6 +10,14 @@
 
       {% if site.linkedin != "" %}
         <a href="{{ site.linkedin }}" class="hover:text-blue-500">LinkedIn</a>
+      {% endif %}
+
+      {% if site.linkedin != "" %}
+        <a href="{{ site.framework }}" class="hover:text-blue-500">Eleventy</a>
+      {% endif %}
+
+      {% if site.linkedin != "" %}
+        <a href="{{ site.template }}" class="hover:text-blue-500">Template</a>
       {% endif %}
     </p>
 

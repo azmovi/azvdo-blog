@@ -9,8 +9,8 @@
     <meta name="theme-color" content="#ffffff"/>
     <meta name="generator" content="{{ eleventy.generator }}">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
-    <link rel="apple-touch-icon" href="/assets/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon.svg">
+    <link rel="apple-touch-icon" href="/assets/img/favicon/favicon.png">
     <link rel="manifest" href="/manifest.json" />
 
     <link rel="preload" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -27,7 +27,7 @@
     </script>
   </head>
 
-  <body class="dark:text-white dark:bg-black">
+  <body class="bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark">
     {{ content | safe }}
     
   <script>
