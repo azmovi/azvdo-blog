@@ -1,10 +1,11 @@
 {
-    "name": "Antonio Cicero Azevedo",
-    "url": "https://azvdo.net/",
-    "title": "Azvdo Blog",
-    "description": "Escrevendo algumas coisas do dia dia, coisas do trabalho e que venho estudando",
-    "github": "https://github.com/azmovi",
-    "linkedin": "https://www.linkedin.com/in/cicero-azevedo-2b30ba200/",
-    "framework": "https://www.11ty.dev/",
-    "template": "https://github.com/httpsterio/11ty-blog-njk-starter"
+  "name": "Antonio Cicero Azevedo",
+  "url": "https://azvdo.net/",
+  "title": "Azvdo Blog",
+  "description": "Escrevendo algumas coisas do dia dia, coisas do trabalho e que venho estudando",
+  "pixelfed": "https://bolha.photos/azmovi",
+  "github": "https://github.com/azmovi",
+  "framework": "https://www.11ty.dev/",
+  "theme": "https://catppuccin.com/palette/",
+  "template": "https://github.com/httpsterio/11ty-blog-njk-starter"
 }

@@ -1,23 +1,25 @@
-<footer class="mt-8 bg-gray-200 dark:bg-gray-900 py-8 flex-shrink-0">
-  <div class="max-w-screen-sm md:max-w-screen-md mx-auto px-8 flex justify-between items-center">
-    <div class="flex flex-col text-sm py-2" >
-            Antonio Cicero Azevedo
+<footer class="m-8 py-8 flex-shrink-0">
+  <div class="max-w-screen-sm md:max-w-screen-md mx-auto flex justify-between items-center">
+    <div class="text-sm py-2" >
+      {% if site.pixelfed != "" %}
+        <a href="{{ site.pixelfed }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Antonio Cicero Azevedo</a>
+      {% endif %}
     </div>
-    <p class="text-sm py-2 flex gap-4">
+    <p class="text-sm py-2 flex flex-wrap gap-4 justify-between items-center">
       {% if site.github != "" %}
-        <a href="{{ site.github }}" class="hover:text-blue-500">Github</a> 
+        <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Github</a>
       {% endif %}
 
-      {% if site.linkedin != "" %}
-        <a href="{{ site.linkedin }}" class="hover:text-blue-500">LinkedIn</a>
+      {% if site.framework != "" %}
+        <a href="{{ site.framework }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Eleventy</a>
       {% endif %}
 
-      {% if site.linkedin != "" %}
-        <a href="{{ site.framework }}" class="hover:text-blue-500">Eleventy</a>
+      {% if site.theme != "" %}
+        <a href="{{ site.theme }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Catpuccin</a>
       {% endif %}
 
-      {% if site.linkedin != "" %}
-        <a href="{{ site.template }}" class="hover:text-blue-500">Template</a>
+      {% if site.template != "" %}
+        <a href="{{ site.template }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Template</a>
       {% endif %}
     </p>
 

@@ -12,6 +12,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon.svg">
     <link rel="apple-touch-icon" href="/assets/img/favicon/favicon.png">
     <link rel="manifest" href="/manifest.json" />
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/feed.xml" />
 
     <link rel="preload" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"></noscript>
@@ -31,15 +32,18 @@
     {{ content | safe }}
     
   <script>
-    document.getElementById("toggleDarkMode").addEventListener("click", function() {
-      if (isDarkMode()) {
-        localStorage.theme = 'light'
-        document.documentElement.classList.remove('dark')
-      } else {
-        localStorage.theme = 'dark'
-        document.documentElement.classList.add('dark')
-      }
-    });
+    const toggle = document.getElementById("toggleDarkMode");
+    if (toggle) {
+      toggle.addEventListener("click", function() {
+        if (isDarkMode()) {
+          localStorage.theme = 'light';
+          document.documentElement.classList.remove('dark');
+        } else {
+          localStorage.theme = 'dark';
+          document.documentElement.classList.add('dark');
+        }
+      });
+    }
   </script>
   </body>
 </html>

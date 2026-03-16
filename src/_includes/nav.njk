@@ -1,8 +1,21 @@
 <nav>
   <ul class="flex py-2 border-b-2 mb-6">
-    <li class="mr-6"><a href="/">Home</a></li>
+    <li class="mr-6"><a href="/">Inicio</a></li>
+    <li class="mr-6"><a href="/about">Sobre mim</a></li>
     <li class="mr-6"><a href="/tags">Tags</a></li>
-    <li class="mr-6"><a href="/about">About</a></li>
-    <li class="mr-6"><span class="cursor-pointer" id="toggleDarkMode">Dark mode</spam></li>
+    <li class="mr-6">
+        <button id="toggleDarkMode" class="cursor-pointer flex items-center gap-1">
+            <img
+                src="/assets/img/moon.svg"
+                alt="Toggle Dark Mode"
+                class="w-6 h-6 hidden dark:block"
+            />
+            <img
+                src="/assets/img/sun.svg"
+                alt="Toggle Light Mode"
+                class="w-6 h-6 block dark:hidden"
+            />
+        </button>
+    </li>
   </ul>
 </nav>

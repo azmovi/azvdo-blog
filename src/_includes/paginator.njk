@@ -3,12 +3,12 @@
       {% if page.url != pagination.href.first %}
         <a href="{{ pagination.href.first }}">
           <button class="paginator-text">
-            First
+            Primeira
           </button>
         </a>
       {% else %}
         <button class="paginator-text cursor-not-allowed">
-          First
+          Primeira
         </button>
       {% endif %}
       
@@ -38,13 +38,13 @@
       {% for pageEntry in pagination.pages %}
         {% if page.url ==  pagination.hrefs[loop.index0] %} 
           <a href="{{ pagination.hrefs[loop.index0] }}" aria-current="page">
-            <button class="border bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4">
+            <button class="post-tag">
               {{ loop.index }}
             </button>
           </a>
         {% else %}
           <a href="{{ pagination.hrefs[loop.index0] }}">
-            <button class="border border-gray-300 bg-white hover:bg-gray-300 text-gray-800 font-bold py-2 px-4">
+            <button class="post-tag">
               {{ loop.index }}
             </button>
           </a>
@@ -78,12 +78,12 @@
       {% if page.url != pagination.href.last %}
         <a href="{{ pagination.href.last }}">
           <button class="paginator-text">
-            Last
+            Última
           </button>
         </a>
       {% else %}
         <button class="paginator-text cursor-not-allowed">
-          Last
+          Última
         </button>
       {% endif %}
       

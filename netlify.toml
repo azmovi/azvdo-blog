@@ -1,0 +1,4 @@
+[build]
+  publish = "_site"
+  command = "npx @11ty/eleventy && npx tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css"
+
