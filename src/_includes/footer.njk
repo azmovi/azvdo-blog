@@ -1,26 +1,21 @@
 <footer class="m-8 py-8 flex-shrink-0">
   <div class="max-w-screen-sm md:max-w-screen-md mx-auto flex justify-between items-center">
     <div class="text-sm py-2" >
-      {% if site.pixelfed != "" %}
-        <a href="{{ site.pixelfed }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Antonio Cicero Azevedo</a>
-      {% endif %}
+      Antonio Cicero Azevedo
     </div>
     <p class="text-sm py-2 flex flex-wrap gap-4 justify-between items-center">
       {% if site.github != "" %}
         <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Github</a>
       {% endif %}
 
-      {% if site.framework != "" %}
-        <a href="{{ site.framework }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Eleventy</a>
+      {% if site.pixelfed != "" %}
+        <a href="{{ site.pixelfed }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Pixelfed</a>
       {% endif %}
 
-      {% if site.theme != "" %}
-        <a href="{{ site.theme }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Catpuccin</a>
+      {% if site.email != "" %}
+        <a href="mailto:{{ site.email }}" class="hover:text-blue-500">Email</a>
       {% endif %}
 
-      {% if site.template != "" %}
-        <a href="{{ site.template }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Template</a>
-      {% endif %}
     </p>
 
   </div>
