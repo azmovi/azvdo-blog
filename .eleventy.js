@@ -42,9 +42,25 @@ module.exports = async function(eleventyConfig) {
       .trim()
   })
 
+  eleventyConfig.addFilter('relatedPosts', (posts, currentUrl, currentTags = [], limit = 3) => {
+    const excludedTags = new Set(['posts', 'all'])
+    const tags = new Set(currentTags.filter(tag => !excludedTags.has(tag)))
+
+    return posts
+      .filter(post => post.url !== currentUrl)
+      .map(post => ({
+        post,
+        sharedTagCount: (post.data.tags || [])
+          .filter(tag => !excludedTags.has(tag) && tags.has(tag)).length,
+      }))
+      .sort((a, b) => b.sharedTagCount - a.sharedTagCount || b.post.date - a.post.date)
+      .slice(0, limit)
+      .map(item => item.post)
+  })
+
   // filter to format post date to pt-br (dd/mm/yyyy)
   eleventyConfig.addFilter("postDate", (dateObj) => {
-    return DateTime.fromJSDate(dateObj).setLocale('pt-BR').toFormat('dd/MM/yyyy');
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).setLocale('pt-BR').toFormat('dd/MM/yyyy');
   })
 
   const publishedPosts = collection =>

@@ -21,3 +21,16 @@ layout: main
 <div class="prose dark:prose-invert">
   {{ content | safe }}
 </div>
+
+{% set recommendedPosts = collections.publishedPosts | relatedPosts(page.url, tags, 2) %}
+{% if recommendedPosts | length %}
+  <section class="mt-12 border-t border-ctp-surface1 pt-8 dark:border-ctpd-surface1" aria-labelledby="recommended-posts-title">
+    <h2 id="recommended-posts-title" class="mb-4 text-xl font-bold">Leia também</h2>
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      {% for post in recommendedPosts %}
+        {% set compact = true %}
+        {% include "post-card.njk" %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

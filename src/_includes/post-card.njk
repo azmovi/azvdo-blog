@@ -1,11 +1,11 @@
-<article class="post-card">
+<article class="post-card {% if compact %}post-card-compact{% endif %}">
   <a href="{{ post.url }}" class="post-card-link" aria-label="Ler post: {{ post.data.title }}"></a>
   <p>
-    <span class="post-title">{{ post.data.title }}</span>
-    <span class="text-base sm:text-2xl font-normal text-ctp-subtext0 dark:text-ctpd-subtext0"> &middot; {{ post.content | safe | readTime }} min de leitura</span>
+    <span class="post-title {% if compact %}post-title-compact{% endif %}">{{ post.data.title }}</span>
+    <span class="{% if compact %}block text-xs{% else %}text-base sm:text-2xl{% endif %} font-normal text-ctp-subtext0 dark:text-ctpd-subtext0">{% if not compact %} &middot; {% endif %}{{ post.content | safe | readTime }} min de leitura</span>
   </p>
   <em class="post-date">{{ post.date | postDate }}</em>
-  <p class="mt-4 text-ctp-subtext1 dark:text-ctpd-subtext1">{{ post.data.post_excerpt | stripMd }}...</p>
+  <p class="{% if compact %}mt-2 line-clamp-2 text-sm{% else %}mt-4{% endif %} text-ctp-subtext1 dark:text-ctpd-subtext1">{{ post.data.post_excerpt | stripMd }}...</p>
   <div class="relative z-20 mt-2 flex items-center gap-2">
     {% set postTags = post.data.tags %}
     {% include "post-tags.njk" %}
