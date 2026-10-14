@@ -5,31 +5,31 @@
   "main": "index.js",
   "repository": "https://github.com/azmovi/azvdo-blog",
   "author": "Antonio Cicero Azevedo",
-  "license": "MIT",
+  "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "dev": "yarn run eleventy --serve & yarn run tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "build": "yarn run eleventy & yarn run tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css",
+    "build": "yarn run eleventy && yarn run tailwindcss -i ./tailwind.css -o _site/assets/styles/tailwind.css",
     "prepare": "husky"
   },
   "dependencies": {
-    "@11ty/eleventy-plugin-rss": "^2.0.4",
-    "@tailwindcss/typography": "^0.5.8",
-    "autoprefixer": "^10.4.21",
-    "luxon": "^3.5.0",
-    "markdown-it": "^12.3.2",
-    "markdown-it-anchor": "^8.6.7",
-    "tailwindcss": "^3.3.3"
+    "@11ty/eleventy-plugin-rss": "^3.0.0",
+    "@tailwindcss/typography": "^0.5.20",
+    "autoprefixer": "^10.6.1",
+    "luxon": "^3.7.2",
+    "markdown-it": "^15.0.2",
+    "markdown-it-anchor": "^10.0.0",
+    "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
-    "@eslint/js": "^9.34.0",
-    "@types/markdown-it": "^14.1.2",
-    "eslint": "^9.34.0",
-    "globals": "^16.3.0",
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "@eslint/js": "^10.0.1",
+    "@types/markdown-it": "^14.2.0",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
     "husky": "^9.1.7",
-    "postcss": "^8.5.6"
+    "postcss": "^8.5.28"
   }
 }

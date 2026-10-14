@@ -5,9 +5,9 @@
     {
       "src": "/assets/img/favicon/favicon.svg",
       "sizes": "32x32",
-      "type": "image/svg",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
-    },
+    }
   ],
   "theme_color": "#000",
   "background_color": "#fff",

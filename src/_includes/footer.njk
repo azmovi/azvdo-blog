@@ -2,22 +2,25 @@
   <div class="max-w-screen-sm md:max-w-screen-md mx-auto flex justify-between items-center">
     <div class="text-sm py-2" >
       Antonio Cicero Azevedo
+      <p class="mt-1 text-xs text-ctp-subtext0 dark:text-ctpd-subtext0">
+        Conteúdo sob a licença
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt-br" target="_blank" rel="noopener noreferrer" class="underline hover:text-ctp-mauve dark:hover:text-ctpd-mauve">CC BY-NC-SA 4.0</a>.
+      </p>
     </div>
     <p class="text-sm py-2 flex flex-wrap gap-4 justify-between items-center">
       {% if site.github != "" %}
-        <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Github</a>
+        <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Github</a>
       {% endif %}
 
       {% if site.pixelfed != "" %}
-        <a href="{{ site.pixelfed }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500">Pixelfed</a>
+        <a href="{{ site.pixelfed }}" target="_blank" rel="noopener noreferrer" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Pixelfed</a>
       {% endif %}
 
       {% if site.email != "" %}
-        <a href="mailto:{{ site.email }}" class="hover:text-blue-500">Email</a>
+        <a href="mailto:{{ site.email }}" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Email</a>
       {% endif %}
 
     </p>
 
   </div>
 </footer>
-

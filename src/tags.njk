@@ -1,0 +1,21 @@
+---
+layout: default
+title: Tags
+---
+
+<header class="pt-10 pb-6 md:pt-16">
+  <p class="text-sm font-semibold uppercase tracking-widest text-ctp-mauve dark:text-ctpd-mauve">Arquivo</p>
+  <h1 class="pt-2 text-5xl font-black md:text-6xl">Tags</h1>
+  <p class="mt-3 text-ctp-subtext1 dark:text-ctpd-subtext1">Assuntos dos posts publicados.</p>
+</header>
+
+<section class="flex flex-wrap gap-3" aria-label="Lista de tags">
+  {% for tag in collections.tagStats %}
+    <a href="/tags/{{ tag.name }}/" class="inline-flex items-center gap-2 rounded-lg border border-ctp-surface1 bg-ctp-mantle px-4 py-3 font-semibold transition-colors hover:border-ctp-mauve hover:text-ctp-mauve dark:border-ctpd-surface1 dark:bg-ctpd-mantle dark:hover:border-ctpd-mauve dark:hover:text-ctpd-mauve">
+      {{ tag.name }}
+      <span class="text-sm font-normal text-ctp-subtext0 dark:text-ctpd-subtext0">{{ tag.count }} {% if tag.count == 1 %}post{% else %}posts{% endif %}</span>
+    </a>
+  {% else %}
+    <p class="text-ctp-subtext1 dark:text-ctpd-subtext1">Ainda não há tags nos posts publicados.</p>
+  {% endfor %}
+</section>

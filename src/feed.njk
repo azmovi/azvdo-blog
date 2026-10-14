@@ -10,12 +10,12 @@
   <subtitle>{{ site.description }}</subtitle>
   <link href="{{ site.url }}feed.xml" rel="self"/>
   <link href="{{ site.url }}"/>
-  <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <updated>{{ collections.publishedPosts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
   <id>{{ site.url }}</id>
   <author>
     <name>{{ site.name }}</name>
   </author>
-  {%- for post in collections.posts | reverse %}
+  {%- for post in collections.publishedPosts | reverse %}
   {%- set absolutePostUrl = post.url | absoluteUrl(site.url) %}
   <entry>
     <title>{{ post.data.title }}</title>

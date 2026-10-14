@@ -1,10 +1,10 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
-const rssPlugin = require('@11ty/eleventy-plugin-rss')
 const markdownIt = require('markdown-it')
 const markdownItAnchor = require('markdown-it-anchor')
 const { DateTime } = require("luxon")
 
-module.exports = function(eleventyConfig) {
+module.exports = async function(eleventyConfig) {
+  const { default: rssPlugin } = await import('@11ty/eleventy-plugin-rss')
   // Plugins
   eleventyConfig.addPlugin(syntaxHighlight)
   eleventyConfig.addPlugin(rssPlugin)
@@ -25,52 +25,76 @@ module.exports = function(eleventyConfig) {
 
   // To create a filter to determine duration of post
   eleventyConfig.addFilter('readTime', (value) => {
-    const content = value
-    const textOnly = content.replace(/(<([^>]+)>)/gi, '')
-    const readingSpeedPerMin = 450
-    return Math.max(1, Math.floor(textOnly.length / readingSpeedPerMin))
+    const textOnly = String(value || '')
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/&nbsp;|&#160;/g, ' ')
+      .trim()
+    const wordCount = textOnly ? textOnly.split(/\s+/).length : 0
+    return Math.max(1, Math.ceil(wordCount / 200))
   })
 
-  // filter to strip markdown images and links from excerpt
+  // Remove Markdown images and keep the visible text from inline links.
   eleventyConfig.addFilter('stripMd', (value) => {
     if (!value) return ''
     return value
       .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
       .trim()
   })
 
-  // filter to format post date to year-month-day
+  // filter to format post date to pt-br (dd/mm/yyyy)
   eleventyConfig.addFilter("postDate", (dateObj) => {
-    return DateTime.fromJSDate(dateObj).toFormat('yyyy-MM-dd');
+    return DateTime.fromJSDate(dateObj).setLocale('pt-BR').toFormat('dd/MM/yyyy');
   })
 
-  // Enable us to iterate over all the tags, excluding posts and all
-  eleventyConfig.addCollection('tagList', collection => {
-    const tagsSet = new Set()
-    collection.getAll().forEach(item => {
-      if (!item.data.tags) return
-      item.data.tags
+  const publishedPosts = collection =>
+    collection.getFilteredByTag('posts').filter(item => item.data.published !== false)
+
+  const tagStats = collection => {
+    const tagCounts = new Map()
+    publishedPosts(collection).forEach(post => {
+      const tags = post.data.tags || []
+      tags
         .filter(tag => !['posts', 'all'].includes(tag))
-        .forEach(tag => tagsSet.add(tag))
+        .forEach(tag => tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1))
     })
-    return Array.from(tagsSet).sort()
-  })
+    return Array.from(tagCounts, ([name, count]) => ({ name, count }))
+      .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'))
+  }
+
+  eleventyConfig.addCollection('tagPages', collection =>
+    tagStats(collection).flatMap(tag => {
+      const posts = collection.getFilteredByTag(tag.name)
+        .filter(post => post.data.published !== false)
+        .reverse()
+      const totalPages = Math.ceil(posts.length / 10)
+      const urlForPage = pageNumber => pageNumber === 0
+        ? `/tags/${tag.name}/`
+        : `/tags/${tag.name}/page/${pageNumber + 1}/`
+
+      return Array.from({ length: totalPages }, (_, pageNumber) => ({
+        ...tag,
+        posts: posts.slice(pageNumber * 10, (pageNumber + 1) * 10),
+        pageNumber,
+        totalPages,
+        previousUrl: pageNumber > 0 ? urlForPage(pageNumber - 1) : null,
+        nextUrl: pageNumber < totalPages - 1 ? urlForPage(pageNumber + 1) : null,
+      }))
+    })
+  )
+
+  eleventyConfig.addCollection('publishedPosts', publishedPosts)
+  eleventyConfig.addCollection('tagStats', tagStats)
 
   const md = markdownIt({ html: true, linkify: true })
   md.use(markdownItAnchor, {
     level: [1, 2],
     permalink: markdownItAnchor.permalink.headerLink({
       safariReaderFix: true,
-      class: 'header-anchor',
+      class: 'no-underline',
     })
   })
   eleventyConfig.setLibrary('md', md)
-
-  // creates a shortcode that allows inserting images with alt-texts. Usage {% asset_img 'imagename','alt-text' %}
-  // you can pass an optional third argument to give the image a custom path. defaults to /assets/img/posts/
-  eleventyConfig.addShortcode('asset_img', (filename, alt, path = '/assets/img/posts/') =>
-    `<img class="my-4" src="${path}${filename}" alt="${alt}" />`
-  )
 
   return {
     dir: {

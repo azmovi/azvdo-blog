@@ -1,0 +1,30 @@
+---
+layout: default
+pagination:
+  data: collections.tagPages
+  size: 1
+  alias: tagPage
+permalink: /tags/{{ tagPage.name }}/{% if tagPage.pageNumber > 0 %}page/{{ tagPage.pageNumber + 1 }}/{% endif %}
+eleventyComputed:
+  title: "{{ tagPage.name }}"
+---
+
+<header class="pt-10 pb-6 md:pt-16">
+  <a href="/tags/" class="text-sm font-semibold text-ctp-mauve hover:underline dark:text-ctpd-mauve">← Todas as tags</a>
+  <p class="mt-6 text-sm font-semibold uppercase tracking-widest text-ctp-mauve dark:text-ctpd-mauve">Arquivo de tag</p>
+  <h1 class="pt-2 text-5xl font-black md:text-6xl">{{ tagPage.name }}</h1>
+</header>
+
+<section aria-label="Posts com a tag {{ tagPage.name }}">
+  {% for post in tagPage.posts %}
+    {% include "post-card.njk" %}
+  {% endfor %}
+</section>
+
+{% set paginationNav = {
+  current: tagPage.pageNumber + 1,
+  total: tagPage.totalPages,
+  previous: tagPage.previousUrl,
+  next: tagPage.nextUrl
+} %}
+{% include "paginator.njk" %}

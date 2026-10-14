@@ -1,23 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="utf-8">
   	<meta name='viewport' content='width=device-width'>
 
-    <title>{{ site.title }}</title>
-    <meta name='description' content={{ site.description }}>
+    <title>{{ title or site.title }}</title>
+    <meta name="description" content="{{ description or site.description }}">
     <meta name="theme-color" content="#ffffff"/>
     <meta name="generator" content="{{ eleventy.generator }}">
 
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon.svg">
-    <link rel="apple-touch-icon" href="/assets/img/favicon/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon/favicon.svg">
     <link rel="manifest" href="/manifest.json" />
     <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="/feed.xml" />
 
     <link rel="preload" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"></noscript>
     <link href="/assets/styles/tailwind.css" rel="stylesheet" />
-    <link href="/assets/styles/index.css" rel="stylesheet" />
     <script>
       const isDarkMode = () => localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
       if (isDarkMode()) {
@@ -28,20 +26,27 @@
     </script>
   </head>
 
-  <body class="bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark">
+  <body class="bg-ctp-base dark:bg-ctpd-base text-ctp-text dark:text-ctpd-text">
     {{ content | safe }}
     
   <script>
     const toggle = document.getElementById("toggleDarkMode");
     if (toggle) {
+      let themeTransitionTimeout;
       toggle.addEventListener("click", function() {
+        const root = document.documentElement;
+        root.classList.add('theme-transition');
+        window.clearTimeout(themeTransitionTimeout);
         if (isDarkMode()) {
           localStorage.theme = 'light';
-          document.documentElement.classList.remove('dark');
+          root.classList.remove('dark');
         } else {
           localStorage.theme = 'dark';
-          document.documentElement.classList.add('dark');
+          root.classList.add('dark');
         }
+        themeTransitionTimeout = window.setTimeout(() => {
+          root.classList.remove('theme-transition');
+        }, 350);
       });
     }
   </script>

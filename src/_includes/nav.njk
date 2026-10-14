@@ -1,9 +1,17 @@
 <nav>
   <ul class="flex py-2 border-b-2 mb-6">
-    <li class="mr-6"><a href="/">Inicio</a></li>
-    <li class="mr-6"><a href="/about">Sobre mim</a></li>
-    <li class="mr-6"><a href="/tags">Tags</a></li>
-    <li class="mr-6"><a href="/feed.xml">RSS</a></li>
+    <li class="mr-6"><a href="/" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Inicio</a></li>
+    <li class="mr-6"><a href="/about" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Sobre mim</a></li>
+    <li class="mr-6"><a href="/tags" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Tags</a></li>
+    <li class="mr-6">
+      <a href="/feed.xml" aria-label="RSS" title="RSS" class="inline-flex text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">
+        <svg role="img" aria-label="RSS" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+          <path d="M4 11a9 9 0 0 1 9 9" />
+          <path d="M4 4a16 16 0 0 1 16 16" />
+          <circle cx="5" cy="19" r="1" fill="currentColor" stroke="none" />
+        </svg>
+      </a>
+    </li>
     <li class="mr-6">
         <button id="toggleDarkMode" class="cursor-pointer flex items-center gap-1">
             <img
