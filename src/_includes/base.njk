@@ -44,6 +44,7 @@
           localStorage.theme = 'dark';
           root.classList.add('dark');
         }
+        window.dispatchEvent(new Event('themechange'));
         themeTransitionTimeout = window.setTimeout(() => {
           root.classList.remove('theme-transition');
         }, 350);

@@ -34,3 +34,54 @@ layout: main
     </div>
   </section>
 {% endif %}
+
+{% if giscus.repoId and giscus.categoryId %}
+  <section class="mt-12 border-t border-ctp-surface1 pt-8 dark:border-ctpd-surface1" aria-labelledby="comments-title">
+    <h2 id="comments-title" class="mb-4 text-xl font-bold">Comentários</h2>
+    <div class="giscus"></div>
+    <script>
+      const giscusContainer = document.currentScript.previousElementSibling;
+      const giscusScript = document.createElement('script');
+      giscusScript.src = 'https://giscus.app/client.js';
+      giscusScript.dataset.repo = '{{ giscus.repo }}';
+      giscusScript.dataset.repoId = '{{ giscus.repoId }}';
+      giscusScript.dataset.category = '{{ giscus.category }}';
+      giscusScript.dataset.categoryId = '{{ giscus.categoryId }}';
+      giscusScript.dataset.mapping = 'pathname';
+      giscusScript.dataset.strict = '0';
+      giscusScript.dataset.reactionsEnabled = '0';
+      giscusScript.dataset.emitMetadata = '0';
+      giscusScript.dataset.inputPosition = 'bottom';
+      giscusScript.dataset.theme = document.documentElement.classList.contains('dark') ? 'catppuccin_mocha' : 'catppuccin_latte';
+      giscusScript.dataset.lang = 'pt';
+      giscusScript.dataset.loading = 'lazy';
+      giscusScript.crossOrigin = 'anonymous';
+      giscusScript.async = true;
+
+      const updateGiscusTheme = () => {
+        const frame = giscusContainer.querySelector('iframe.giscus-frame');
+        if (!frame?.contentWindow) return;
+
+        frame.contentWindow.postMessage({
+          giscus: {
+            setConfig: {
+              theme: document.documentElement.classList.contains('dark') ? 'catppuccin_mocha' : 'catppuccin_latte',
+            },
+          },
+        }, 'https://giscus.app');
+      };
+
+      window.addEventListener('themechange', updateGiscusTheme);
+
+      const giscusObserver = new MutationObserver(() => {
+        const frame = giscusContainer.querySelector('iframe.giscus-frame');
+        if (!frame) return;
+
+        frame.addEventListener('load', updateGiscusTheme, { once: true });
+        giscusObserver.disconnect();
+      });
+      giscusObserver.observe(giscusContainer, { childList: true, subtree: true });
+      document.currentScript.after(giscusScript);
+    </script>
+  </section>
+{% endif %}
