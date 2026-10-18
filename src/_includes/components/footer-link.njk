@@ -1,0 +1,5 @@
+{% macro footerLink(href, label, external=false) %}
+  <li>
+    <a href="{{ href }}" class="footer-link"{% if external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ label }}</a>
+  </li>
+{% endmacro %}

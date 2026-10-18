@@ -1,3 +1,5 @@
+{% from "components/footer-link.njk" import footerLink %}
+
 <footer class="mt-12 border-t border-ctp-surface1 px-4 py-6 dark:border-ctpd-surface1 sm:px-8 sm:py-8">
   <div class="mx-auto flex max-w-screen-md flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
     <div class="text-sm">
@@ -10,15 +12,15 @@
     <nav aria-label="Contato e redes sociais">
       <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm sm:justify-end">
       {% if site.github != "" %}
-        <li><a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Github</a></li>
+        {{ footerLink(site.github, "Github", true) }}
       {% endif %}
 
       {% if site.pixelfed != "" %}
-        <li><a href="{{ site.pixelfed }}" target="_blank" rel="noopener noreferrer" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Pixelfed</a></li>
+        {{ footerLink(site.pixelfed, "Pixelfed", true) }}
       {% endif %}
 
       {% if site.email != "" %}
-        <li><a href="mailto:{{ site.email }}" class="text-ctp-text dark:text-ctpd-text hover:text-ctp-mauve dark:hover:text-ctpd-mauve transition-colors duration-200">Email</a></li>
+        {{ footerLink("mailto:" + site.email, "Email") }}
       {% endif %}
       </ul>
     </nav>

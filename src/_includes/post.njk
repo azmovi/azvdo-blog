@@ -3,6 +3,7 @@ layout: main
 ---
 
 {% include "nav.njk" %}
+{% from "components/prose-content.njk" import proseContent %}
 
 <p class="text-5xl md:text-6xl font-black pt-10 md:pt-30 pb-4">
     {{ title}}
@@ -18,9 +19,7 @@ layout: main
   {% include "post-tags.njk" %}
 </div>
 
-<div class="prose dark:prose-invert">
-  {{ content | safe }}
-</div>
+{{ proseContent(content) }}
 
 {% set recommendedPosts = collections.publishedPosts | relatedPosts(page.url, tags, 2) %}
 {% if recommendedPosts | length %}

@@ -9,4 +9,5 @@ layout: main
 
 {% include "nav.njk" %}
 
-{{ content | safe}}
+{% from "components/prose-content.njk" import proseContent %}
+{{ proseContent(content, "article") }}

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .prose a:hover {
+    @apply text-ctp-pink;
+  }
+
+  .dark .prose a:hover {
+    @apply text-ctpd-pink;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .theme-transition,
   .theme-transition * {
@@ -11,6 +21,34 @@
 }
 
 @layer components {
+  .nav-link {
+    @apply inline-flex items-center rounded-md px-3 py-2 text-ctp-text transition-colors duration-200;
+  }
+  .nav-link:hover {
+    @apply text-ctp-mauve;
+  }
+  .nav-link:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-ctp-mauve;
+  }
+  .footer-link {
+    @apply text-ctp-text transition-colors duration-200 dark:text-ctpd-text;
+  }
+  .footer-link:hover {
+    @apply text-ctp-mauve;
+  }
+  .dark .footer-link:hover {
+    @apply text-ctpd-mauve;
+  }
+  .dark .nav-link {
+    @apply text-ctpd-text;
+  }
+  .dark .nav-link:hover {
+    @apply text-ctpd-mauve;
+  }
+  .dark .nav-link:focus-visible {
+    @apply outline-ctpd-mauve;
+  }
+
   .post-card {
     @apply relative py-4 px-4 -mx-4 rounded-lg border-2 border-transparent transition-all duration-200;
   }

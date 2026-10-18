@@ -1,6 +1,5 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight')
 const markdownIt = require('markdown-it')
-const markdownItAnchor = require('markdown-it-anchor')
 const { DateTime } = require("luxon")
 
 module.exports = async function(eleventyConfig) {
@@ -103,13 +102,12 @@ module.exports = async function(eleventyConfig) {
   eleventyConfig.addCollection('tagStats', tagStats)
 
   const md = markdownIt({ html: true, linkify: true })
-  md.use(markdownItAnchor, {
-    level: [1, 2],
-    permalink: markdownItAnchor.permalink.headerLink({
-      safariReaderFix: true,
-      class: 'no-underline',
-    })
-  })
+  md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+    const token = tokens[idx]
+    token.attrSet('target', '_blank')
+    token.attrSet('rel', 'noopener noreferrer')
+    return self.renderToken(tokens, idx, options)
+  }
   eleventyConfig.setLibrary('md', md)
 
   return {
