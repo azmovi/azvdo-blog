@@ -3,8 +3,6 @@ layout: default
 title: Sobre mim
 ---
 
-# Sobre mim
-
 Oi, eu sou o Antonio Cicero. Nasci em 2002 e passei grande parte da minha vida em
 Teresina, no Piauí, mas também morei por um tempo no Ceará, em Tianguá, e cá estamos
 em São Carlos por conta do bacharelado em Ciência da Computação na UFSCar. Sou da
@@ -18,7 +16,9 @@ textual que eu mais gostava na escola).
 Aqui em São Carlos, algumas coisas mudaram. Fiquei mais inserido em comunidades de
 tecnologia, principalmente na comunidade Python daqui e na da UFSCar, tanto que
 acabei colaborando por dois anos com a Semana da Computação da faculdade. Também
-consegui ministrar um minicurso e dar uma palavrinha nas [lightning talks](https://youtu.be/gGSoLue6qGQ?t=649).
+consegui ministrar um [minicurso](https://github.com/azmovi/minicurso-eda) e dar
+uma palavrinha em [lightning talks](https://youtu.be/gGSoLue6qGQ?t=649) e uma
+[palestra ](https://youtu.be/wCqSZY70ITQ?t=2150)
 Além da experiência, foi muito bom fazer parte de uma comunidade assim e conversar
 com uma galera muito gente fina.
 

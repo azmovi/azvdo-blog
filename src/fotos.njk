@@ -1,0 +1,17 @@
+---
+layout: default
+title: Fotos
+permalink: /fotos/
+---
+
+<header class="py-3">
+  <h1 class="text-sm font-semibold uppercase tracking-widest text-ctp-mauve dark:text-ctpd-mauve">Arquivo pessoal</h1>
+</header>
+
+<section class="grid grid-cols-3 gap-1 sm:gap-2" aria-label="Publicações de fotos">
+  {% for photo in collections.photos %}
+    {% include "photo-card.njk" %}
+  {% else %}
+    <p class="col-span-full text-ctp-subtext1 dark:text-ctpd-subtext1">Ainda não publiquei fotos por aqui.</p>
+  {% endfor %}
+</section>

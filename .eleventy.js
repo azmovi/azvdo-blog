@@ -13,6 +13,9 @@ module.exports = async function(eleventyConfig) {
 
   // Copy these static files to _site folder
   eleventyConfig.addPassthroughCopy('src/assets')
+  eleventyConfig.addPassthroughCopy('src/photos/**/*.{jpg,jpeg,JPEG,png,webp,gif,mp4,webm,mov}', {
+    mode: 'html-relative'
+  })
   eleventyConfig.addPassthroughCopy('src/manifest.json')
 
   // To create excerpts
@@ -31,6 +34,8 @@ module.exports = async function(eleventyConfig) {
     const wordCount = textOnly ? textOnly.split(/\s+/).length : 0
     return Math.max(1, Math.ceil(wordCount / 200))
   })
+
+  eleventyConfig.addFilter('mediaType', src => /\.(mp4|webm|mov)$/i.test(src) ? 'video' : 'image')
 
   // Remove Markdown images and keep the visible text from inline links.
   eleventyConfig.addFilter('stripMd', (value) => {
@@ -62,8 +67,39 @@ module.exports = async function(eleventyConfig) {
     return DateTime.fromJSDate(dateObj, { zone: 'utc' }).setLocale('pt-BR').toFormat('dd/MM/yyyy');
   })
 
+  eleventyConfig.addFilter("isoDate", (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toISODate();
+  })
+
   const publishedPosts = collection =>
     collection.getFilteredByTag('posts').filter(item => item.data.published !== false)
+
+  const publishedPhotos = collection =>
+    collection.getFilteredByTag('photos')
+      .filter(item => item.data.published !== false)
+      .sort((a, b) => b.date - a.date)
+
+  eleventyConfig.addFilter('relatedPhotos', (photos, currentUrl, limit = 2) => {
+    const currentIndex = photos.findIndex(photo => photo.url === currentUrl)
+    if (currentIndex < 0) return []
+
+    const related = []
+    const previousIndex = currentIndex - 1
+    const nextIndex = currentIndex + 1
+
+    if (previousIndex >= 0) related.push(photos[previousIndex])
+    if (nextIndex < photos.length && related.length < limit) related.push(photos[nextIndex])
+
+    for (let distance = 2; related.length < limit && distance < photos.length; distance += 1) {
+      const fartherPrevious = currentIndex - distance
+      const fartherNext = currentIndex + distance
+
+      if (fartherPrevious >= 0 && related.length < limit) related.push(photos[fartherPrevious])
+      if (fartherNext < photos.length && related.length < limit) related.push(photos[fartherNext])
+    }
+
+    return related
+  })
 
   const tagStats = collection => {
     const tagCounts = new Map()
@@ -99,6 +135,7 @@ module.exports = async function(eleventyConfig) {
   )
 
   eleventyConfig.addCollection('publishedPosts', publishedPosts)
+  eleventyConfig.addCollection('photos', publishedPhotos)
   eleventyConfig.addCollection('tagStats', tagStats)
 
   const md = markdownIt({ html: true, linkify: true })
