@@ -1,0 +1,4 @@
+#!/bin/sh
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+log=$(./build.sh "$tmp/public" 2>&1) || { echo "$log" >&2; exit 1; }

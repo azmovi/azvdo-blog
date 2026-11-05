@@ -1,0 +1,67 @@
+{% component check_post(post) -%}
+{% set file = "content/" ~ post.relative_path %}
+{% if not post.title %}{{ throw(message=file ~ ": falta `title`") }}{% endif %}
+{% if not post.date %}{{ throw(message=file ~ ": falta `date`") }}{% endif %}
+{% if not post.taxonomies?.tags %}{{ throw(message=file ~ ": falta `taxonomies.tags`") }}{% endif %}
+{% if not post.summary %}{{ throw(message=file ~ ": falta o resumo (texto antes de <!-- more -->)") }}{% endif %}
+{%- endcomponent %}
+
+{% component check_page(page) -%}
+{% set file = "content/" ~ page.relative_path %}
+{% if not page.title %}{{ throw(message=file ~ ": falta `title`") }}{% endif %}
+{% if not page.description %}{{ throw(message=file ~ ": falta `description`") }}{% endif %}
+{%- endcomponent %}
+
+{% component check_album(album) -%}
+{% set file = "content/" ~ album.relative_path %}
+{% if not album.title %}{{ throw(message=file ~ ": falta `title`") }}{% endif %}
+{% if not album.date %}{{ throw(message=file ~ ": falta `date`") }}{% endif %}
+{% if not album.extra?.media %}{{ throw(message=file ~ ": falta `extra.media`") }}{% endif %}
+{% for item in album.extra.media %}
+{% if not item?.src or not item?.alt %}{{ throw(message=file ~ ": item " ~ loop.index ~ " de `extra.media` precisa de `src` e `alt`") }}{% endif %}
+{% if not ("/" ~ album.colocated_path ~ (item.src | trim_start(pat="./"))) in album.assets %}{{ throw(message=file ~ ": arquivo `" ~ item.src ~ "` não está na pasta do álbum") }}{% endif %}
+{% endfor %}
+{%- endcomponent %}
+
+{% component plain_text(html) -%}
+{{ html | striptags | replace(from="&lt;", to="<") | replace(from="&gt;", to=">") | replace(from="&quot;", to='"') | replace(from="&#39;", to="'") | replace(from="&amp;", to="&") | trim }}
+{%- endcomponent %}
+
+{% component post_tags(tags) %}
+<div class="tags">
+  {% for tag in tags %}
+  <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}" class="tag">{{ tag }}</a>
+  {% endfor %}
+</div>
+{% endcomponent %}
+
+{% component post_meta(post) %}
+<p class="meta">
+  <time datetime="{{ post.date }}">{{ post.date | date(format="%d/%m/%Y") }}</time>
+  · {% if post.reading_time > 1 %}{{ post.reading_time }}{% else %}1{% endif %} min de leitura
+</p>
+{% endcomponent %}
+
+{% component post_card(post, compact=false) %}
+{{ <check_post post={post} /> }}
+<article class="post-card"{% if compact %} data-compact{% endif %}>
+  <a href="{{ post.permalink }}" class="post-card__link" aria-label="Ler post: {{ post.title }}"></a>
+  <h2 class="post-card__title">{{ post.title }}</h2>
+  {{ <post_meta post={post} /> }}
+  <p class="post-card__excerpt">{{ <plain_text html={post.summary} /> }}…</p>
+  {{ <post_tags tags={post.taxonomies.tags} /> }}
+</article>
+{% endcomponent %}
+
+{% component photo_card(album) %}
+{{ <check_album album={album} /> }}
+{% set cover = album.extra.media | first %}
+{% set thumb = resize_image(path=album.colocated_path ~ (cover.src | trim_start(pat="./")), width=400, height=400, op="fill", format="webp", quality=80) %}
+<a href="{{ album.permalink }}" class="photo-card" aria-label="Abrir álbum: {{ album.title }}">
+  <img src="{{ thumb.url }}" alt="{{ cover.alt }}" width="400" height="400" loading="lazy" decoding="async">
+  <span aria-hidden="true">
+    {{ album.title }}
+    <time datetime="{{ album.date }}">{{ album.date | date(format="%d/%m/%Y") }}</time>
+  </span>
+</a>
+{% endcomponent %}

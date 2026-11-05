@@ -1,0 +1,28 @@
+base_url = "https://azvdo.net"
+title = "Azvdo Blog"
+description = "Escrevendo algumas coisas do dia dia, coisas do trabalho e que venho estudando"
+default_language = "pt-BR"
+author = "Antonio Cicero Azevedo"
+minify_html = true
+
+taxonomies = [{ name = "tags" }]
+
+[slugify]
+paths = "safe"
+
+[markdown]
+external_links_target_blank = true
+external_links_no_referrer = true
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[extra]
+github = "https://github.com/azmovi"
+email = "antonio@azvdo.net"
+
+[extra.giscus]
+repo = "azmovi/azvdo-blog"
+repo_id = "R_kgDOOgp5mw"
+category = "Q&A"
+category_id = "DIC_kwDOOgp5m84DIhNb"

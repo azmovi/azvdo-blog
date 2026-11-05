@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block logo %}{% endblock logo %}
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock title %}
+{% block description %}{{ <plain_text html={page.summary} /> }}{% endblock description %}
+
+{% block content %}
+<header class="page-header">
+  <h1>{{ page.title }}</h1>
+  {{ <post_meta post={page} /> }}
+  {{ <post_tags tags={page.taxonomies.tags} /> }}
+</header>
+
+<div class="prose">{{ page.content | safe }}</div>
+
+{% set tags = page.taxonomies.tags %}
+{% set posts = get_section(path="posts/_index.md") %}
+{% for post in posts.pages %}{{ <check_post post={post} /> }}{% endfor %}
+{% set others = [post for post in posts.pages if post.permalink != page.permalink] %}
+{% set ranked = [{"post": post, "shared_tags_then_days": ([tag for tag in post.taxonomies.tags if tag in tags] | length) * 1000000 + (post.date | date(format="%s") | int) // 86400} for post in others] %}
+{% set related = [item.post for item in ranked | sort(attribute="shared_tags_then_days")][::-1][:2] %}
+{% if related %}
+<section class="section" aria-labelledby="related-title">
+  <h2 id="related-title">Leia também</h2>
+  <div class="auto-grid">
+    {% for post in related %}{{ <post_card post={post} compact={true} /> }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% set giscus = config.extra.giscus %}
+<section class="section" aria-labelledby="comments-title">
+  <h2 id="comments-title">Comentários</h2>
+  <div class="giscus" data-repo="{{ giscus.repo }}" data-repo-id="{{ giscus.repo_id }}"
+       data-category="{{ giscus.category }}" data-category-id="{{ giscus.category_id }}"></div>
+  <script src="/js/comments.js" defer></script>
+</section>
+{% endblock content %}
