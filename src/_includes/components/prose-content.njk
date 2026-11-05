@@ -1,8 +1,0 @@
-{% macro proseContent(content, wrapper="div") %}
-  {% set proseClasses = "prose prose-a:text-ctp-mauve prose-a:underline prose-a:underline-offset-2 dark:prose-invert dark:prose-a:text-ctpd-mauve" %}
-  {% if wrapper == "article" %}
-    <article class="{{ proseClasses }}">{{ content | safe }}</article>
-  {% else %}
-    <div class="{{ proseClasses }}">{{ content | safe }}</div>
-  {% endif %}
-{% endmacro %}

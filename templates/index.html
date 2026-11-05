@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="sr-only">{{ config.title }}</h1>
+{% set posts = get_section(path="posts/_index.md") %}
+{% for post in posts.pages %}
+{{ <post_card post={post} /> }}
+{% endfor %}
+{% endblock content %}

@@ -1,3 +1,16 @@
 [build]
-  publish = "_site"
-  command = "yarn build"
+  publish = "public"
+  command = "./build.sh"
+
+[build.environment]
+  ZOLA_VERSION = "0.23.6"
+
+[[redirects]]
+  from = "/feed.xml"
+  to = "/posts/atom.xml"
+  status = 301
+
+[[redirects]]
+  from = "/posts/"
+  to = "/"
+  status = 301

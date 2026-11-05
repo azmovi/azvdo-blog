@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Tags · {{ config.title }}{% endblock title %}
+
+{% block content %}
+<header class="page-header">
+  <p class="eyebrow">Arquivo</p>
+  <h1>Tags</h1>
+  <p>Assuntos dos posts publicados.</p>
+</header>
+
+<section class="tag-list" aria-label="Lista de tags">
+  {% for term in terms %}
+  <a href="{{ term.permalink }}">
+    {{ term.name }}
+    <small>{{ term.pages | length }} {% if term.pages | length == 1 %}post{% else %}posts{% endif %}</small>
+  </a>
+  {% endfor %}
+</section>
+{% endblock content %}

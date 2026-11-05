@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Fotos · {{ config.title }}{% endblock title %}
+
+{% block content %}
+<h1 class="eyebrow">Arquivo pessoal</h1>
+<section class="photo-grid" aria-label="Publicações de fotos">
+  {% for album in section.pages %}
+  {{ <photo_card album={album} /> }}
+  {% endfor %}
+</section>
+{% endblock content %}

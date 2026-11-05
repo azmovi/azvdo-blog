@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block logo %}{% endblock logo %}
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock title %}
+
+{% block content %}
+{{ <check_album album={page} /> }}
+{% set media = page.extra.media %}
+<article class="album">
+  <header>
+    <h1>{{ page.title }}</h1>
+    <time datetime="{{ page.date }}" class="meta">{{ page.date | date(format="%d/%m/%Y") }}</time>
+  </header>
+
+  <section data-carousel aria-label="Álbum: {{ page.title }}" aria-roledescription="carrossel">
+    <div class="carousel-track" tabindex="0" aria-label="Fotos do álbum">
+      {% for item in media %}
+      <figure>
+        {% if item.src is matching(pat="(?i)[.](mp4|webm|mov)$") %}
+        <video src="{{ item.src }}" controls playsinline preload="metadata" aria-label="{{ item.alt }}"></video>
+        {% else %}
+        <img src="{{ item.src }}" alt="{{ item.alt }}" {% if loop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+        {% endif %}
+      </figure>
+      {% endfor %}
+    </div>
+
+    {% if media | length > 1 %}
+    <div class="carousel-controls">
+      <button type="button" aria-label="Foto anterior">←</button>
+      <output aria-live="polite">1 / {{ media | length }}</output>
+      <button type="button" aria-label="Próxima foto">→</button>
+    </div>
+    {% endif %}
+  </section>
+
+  {% set fotos = get_section(path="fotos/_index.md") %}
+  {% set albums = fotos.pages %}
+  {% set index = [n for n in range(end=albums | length) if albums[n].permalink == page.permalink][0] %}
+  {% set last_start = albums | length - 5 %}
+  {% set start = last_start if index - 2 > last_start else index - 2 %}
+  {% set start = 0 if start < 0 else start %}
+  {% set nearby = [album for album in albums[start:start + 5] if album.permalink != page.permalink] %}
+  <section class="section" aria-labelledby="more-photos-title">
+    <h2 id="more-photos-title">Mais fotos</h2>
+    <div class="photo-grid" style="--columns: 4">
+      {% for album in nearby %}{{ <photo_card album={album} /> }}{% endfor %}
+    </div>
+  </section>
+</article>
+
+{% if media | length > 1 %}
+<script src="/js/photo-carousel.js" defer></script>
+{% endif %}
+{% endblock content %}
